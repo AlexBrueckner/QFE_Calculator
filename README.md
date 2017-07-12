@@ -14,3 +14,5 @@ You can't really do anything wrong. Should any of your inputs be off (such as le
 
 Once I have verified the application runs stable and settled with a design I like, I will also put this onto the Android App Store. I wish I could do one for the iPhone but I simply refuse to learn a whole new language for just one platform and I won't pay any money for them to authorize the app. Sorry guys!
 Enjoy!
+
+FOR USE IN DCS:WORLD ONLY! PRECISION OF THESE COMPUTATIONS IT NOT GUARANTEED NOR IS THIS APPLICATION DESIGNED TO BE USED WITH A REAL AIRPLANE! 
