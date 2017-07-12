@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="mki.mobilecomputing.qfe_calculator.MainActivity">
+
+    <EditText
+        android:id="@+id/input_temperature"
+        android:layout_width="114dp"
+        android:layout_height="42dp"
+        android:ems="10"
+        android:inputType="number|numberSigned|numberDecimal"
+        android:layout_marginRight="6dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="-2dp" />
+
+    <EditText
+        android:id="@+id/input_targetElevation"
+        android:layout_width="116dp"
+        android:layout_height="44dp"
+        android:ems="10"
+        android:inputType="number|numberSigned|numberDecimal"
+        android:layout_marginRight="6dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="11dp"
+        app:layout_constraintTop_toBottomOf="@+id/input_temperature" />
+
+    <EditText
+        android:id="@+id/input_runwayQfe"
+        android:layout_width="113dp"
+        android:layout_height="45dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        app:layout_constraintLeft_toRightOf="@+id/textView3"
+        android:layout_marginLeft="39dp"
+        android:layout_marginBottom="11dp"
+        app:layout_constraintBottom_toTopOf="@+id/input_runwayElevation" />
+
+    <EditText
+        android:id="@+id/input_runwayElevation"
+        android:layout_width="112dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="number|numberSigned|numberDecimal"
+        app:layout_constraintLeft_toRightOf="@+id/textView6"
+        android:layout_marginLeft="12dp"
+        android:layout_marginBottom="57dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView" />
+
+    <Button
+        android:id="@+id/button_calculateQfe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calculate Target QFE"
+        app:layout_constraintLeft_toRightOf="@+id/imageView"
+        android:layout_marginLeft="107dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="35dp" />
+
+    <TextView
+        android:layout_width="104dp"
+        android:layout_height="56dp"
+        android:text="Runway Elevation (Meters)"
+        android:id="@+id/textView6"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Runway QFE"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="110dp"
+        android:layout_height="49dp"
+        android:text="Target Elevation (meters) "
+        app:layout_constraintRight_toLeftOf="@+id/input_targetElevation"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_calculateQfe"
+        app:layout_constraintVertical_bias="0.127"
+        app:layout_constraintLeft_toRightOf="@+id/input_runwayElevation"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintHorizontal_bias="0.528" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="94dp"
+        android:layout_height="15dp"
+        android:text="Temperature (Celsius)"
+        app:layout_constraintRight_toLeftOf="@+id/input_temperature"
+        android:layout_marginRight="32dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/input_runwayQfe"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintHorizontal_bias="0.505" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="153dp"
+        android:layout_height="153dp"
+        app:srcCompat="@drawable/f99th_logo_300_px"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp" />
+
+    <EditText
+        android:id="@+id/output_targetQfe"
+        android:layout_width="113dp"
+        android:layout_height="42dp"
+        android:ems="10"
+        android:inputType="none"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/button_calculateQfe"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="57dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/input_targetElevation"
+        app:layout_constraintVertical_bias="0.514" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calculated QFE at Target"
+        app:layout_constraintRight_toLeftOf="@+id/output_targetQfe"
+        android:layout_marginRight="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/imageView"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_calculateQfe"
+        app:layout_constraintHorizontal_bias="0.78"
+        app:layout_constraintVertical_bias="0.68" />
+
+</android.support.constraint.ConstraintLayout>

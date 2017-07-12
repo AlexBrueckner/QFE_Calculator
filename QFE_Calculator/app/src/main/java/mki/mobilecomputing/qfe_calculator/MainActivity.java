@@ -9,12 +9,18 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static boolean visitShown = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        if(!visitShown){
+        Toast.makeText(MainActivity.this,"Thanks for using this app! Please visit http://f99th.com" +
+                "/!",Toast.LENGTH_LONG).show();
+        visitShown = true;
+        }
         //Declare EditTexts for input parsing
         final EditText input_runwayQfe, input_runwayElevation, input_targetElevation, input_temperature;
         input_runwayQfe = (EditText) findViewById(R.id.input_runwayQfe);
@@ -23,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
         input_temperature = (EditText) findViewById(R.id.input_temperature);
         //Declare output field
         final EditText output_Qfe = (EditText) findViewById(R.id.output_targetQfe);
+        //Prevent editing the Output field
+        output_Qfe.setFocusable(false);
         //Declare button
         Button doTheMagic = (Button) findViewById(R.id.button_calculateQfe);
 
