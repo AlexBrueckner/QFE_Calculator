@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                     sRunwayQfe = input_runwayQfe.getText().toString();
                     sRunwayElevation = input_runwayElevation.getText().toString();
                     sTargetElevation = input_targetElevation.getText().toString();
-                    sTemperature = input_targetElevation.getText().toString();
+                    sTemperature = input_temperature.getText().toString();
 
                     if(sRunwayQfe == null ||sRunwayQfe.length() <= 0){
                         Toast.makeText(MainActivity.this,"Invalid Runway QFE, wrong format?",
@@ -91,16 +91,28 @@ public class MainActivity extends AppCompatActivity {
                     fTemperature = Double.parseDouble(sTemperature);
                     //Everything okay? Lets do this!
 
+
+
                     double temp0, temp1, temp2, temp3;
                     temp0 = 0.0065 * (fTargetElevation - fRunwayElevation);
                     temp1 = 237.15 + fTemperature;
                     temp2 = 1 - (temp0 / temp1);
                     temp3 = Math.pow(temp2,5.225);
 
+                    System.out.println("temp0: "+temp0);
+                    System.out.println("temp1: "+temp1);
+                    System.out.println("temp2: "+temp2);
+                    System.out.println("temp3: "+temp3);
+
                     double fTargetQfe = fRunwayQfe * temp3;
                     output_Qfe.setText(Double.toString(Math.round(fTargetQfe)));
-                }
 
+                    String outputData = String.format("|Start QFE: %f| Start Elev: %f| Targ Elev: " +
+                                    "%f| Temperature:%f| Target QFE: %f",fRunwayQfe,fRunwayElevation,
+                            fTargetElevation,fTemperature,fTargetQfe);
+                    System.out.println(outputData);
+                }
+                //This should never be thrown, but hey, better safe than sorry!
                 catch(NumberFormatException nfe){
 
                     Toast.makeText(MainActivity.this,"Could not parse one of the Inputs!" +
