@@ -1,14 +1,18 @@
 package mki.mobilecomputing.qfe_calculator;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-
+    private static boolean useMeters,useCelsius;
     private static boolean visitShown = false;
 
     @Override
@@ -23,6 +27,20 @@ public class MainActivity extends AppCompatActivity {
         }
         //Declare EditTexts for input parsing
         final EditText input_runwayQfe, input_runwayElevation, input_targetElevation, input_temperature;
+        //Grab radio buttons
+        final RadioButton radioCelsius,radioFahrenheit,radioMeters,radioFeet;
+        radioCelsius = (RadioButton) findViewById(R.id.radioCelsius);
+        radioFahrenheit = (RadioButton) findViewById(R.id.radioFahrenheit);
+        radioMeters = (RadioButton) findViewById(R.id.radioMeters);
+        radioFeet = (RadioButton) findViewById(R.id.radioFeet);
+
+        radioCelsius.setChecked(true);
+        useCelsius = true;
+        radioMeters.setChecked(true);
+        useMeters = true;
+
+
+        //Grab EditTexts
         input_runwayQfe = (EditText) findViewById(R.id.input_runwayQfe);
         input_runwayElevation = (EditText) findViewById(R.id.input_runwayElevation);
         input_targetElevation = (EditText) findViewById(R.id.input_targetElevation);
@@ -31,6 +49,17 @@ public class MainActivity extends AppCompatActivity {
         final EditText output_Qfe = (EditText) findViewById(R.id.output_targetQfe);
         //Prevent editing the Output field
         output_Qfe.setFocusable(false);
+        //Declare ImageView
+        ImageView logo = (ImageView)findViewById(R.id.f99thLogo);
+        logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //This will open the DEFAULT BROWSER FOR THE PHONE
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.f99th.com/")));
+            }
+        });
+        //Setup web link
+
         //Declare button
         Button doTheMagic = (Button) findViewById(R.id.button_calculateQfe);
 
@@ -86,9 +115,38 @@ public class MainActivity extends AppCompatActivity {
                     double fRunwayQfe,fRunwayElevation,fTargetElevation,fTemperature;
 
                     fRunwayQfe = Double.parseDouble(sRunwayQfe);
+
+                    if(useMeters){
+                        System.out.println("Using meters");
                     fRunwayElevation = Double.parseDouble(sRunwayElevation);
                     fTargetElevation = Double.parseDouble(sTargetElevation);
-                    fTemperature = Double.parseDouble(sTemperature);
+                    }
+
+                    else{
+                        System.out.println("Converting to meters");
+                        fRunwayElevation = feetToMeters(Double.parseDouble(sRunwayElevation));
+                        System.out.println("Startelev before Conversion: " +
+                                Double.parseDouble(sRunwayElevation) + " after conversion: "
+                                + fRunwayElevation);
+                        fTargetElevation = feetToMeters(Double.parseDouble(sTargetElevation));
+                        System.out.println("Targelev before Conversion: " +
+                                Double.parseDouble(sTargetElevation) + " after conversion: "
+                                + fTargetElevation);
+                    }
+
+                    if(useCelsius){
+                        System.out.println("Using Celsius");
+                        fTemperature = Double.parseDouble(sTemperature);
+                    }
+
+                    else{
+                        System.out.println("Converting to Celsius");
+                        fTemperature = fahrenheitToCelsius(Double.parseDouble(sTemperature));
+                        System.out.println("Temp before Conversion: " +
+                                Double.parseDouble(sTemperature) + " after conversion: "
+                                + fTemperature);
+                    }
+
                     //Everything okay? Lets do this!
 
 
@@ -99,18 +157,8 @@ public class MainActivity extends AppCompatActivity {
                     temp2 = 1 - (temp0 / temp1);
                     temp3 = Math.pow(temp2,5.225);
 
-                    System.out.println("temp0: "+temp0);
-                    System.out.println("temp1: "+temp1);
-                    System.out.println("temp2: "+temp2);
-                    System.out.println("temp3: "+temp3);
-
                     double fTargetQfe = fRunwayQfe * temp3;
                     output_Qfe.setText(Double.toString(Math.round(fTargetQfe)));
-
-                    String outputData = String.format("|Start QFE: %f| Start Elev: %f| Targ Elev: " +
-                                    "%f| Temperature:%f| Target QFE: %f",fRunwayQfe,fRunwayElevation,
-                            fTargetElevation,fTemperature,fTargetQfe);
-                    System.out.println(outputData);
                 }
                 //This should never be thrown, but hey, better safe than sorry!
                 catch(NumberFormatException nfe){
@@ -132,5 +180,58 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    /***
+     * feetToMeters
+     * Converts feet to meters
+     * @param feet
+     * @return given value in meters
+     */
+    private double feetToMeters(double feet){
+        return feet / 3.2808;
+    }
+
+    /***
+     * fahrenheitToCelsius converts input in fahrenheit to celsius
+     * @param fahrenheit
+     * @return given value in celsius
+     */
+    private double fahrenheitToCelsius(double fahrenheit){
+        return ((fahrenheit-32.0) * (5.0/9.0));
+    }
+
+    public void onRadioButtonClicked(View view) {
+        System.out.println("Inside onRadioButtonClicked");
+        boolean checked = ((RadioButton) view).isChecked();
+        final RadioButton radioCelsius,radioFahrenheit,radioMeters,radioFeet;
+        radioCelsius = (RadioButton) findViewById(R.id.radioCelsius);
+        radioFahrenheit = (RadioButton) findViewById(R.id.radioFahrenheit);
+        radioMeters = (RadioButton) findViewById(R.id.radioMeters);
+        radioFeet = (RadioButton) findViewById(R.id.radioFeet);
+        System.out.println("Button clicked: " + view.getId());
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.radioCelsius:
+                radioFahrenheit.setChecked(false);
+                useCelsius = true;
+                break;
+            case R.id.radioFahrenheit:
+                useCelsius = false;
+                radioCelsius.setChecked(false);
+                break;
+            case R.id.radioFeet:
+                useMeters = false;
+                radioMeters.setChecked(false);
+                break;
+            case R.id.radioMeters:
+                useMeters = true;
+                radioFeet.setChecked(false);
+                break;
+            default:
+                System.out.println("no valid button pressed??");
+                break;
+        }
     }
 }
